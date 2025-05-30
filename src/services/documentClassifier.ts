@@ -1,4 +1,3 @@
-
 import { DocumentType, DocumentMetadata, UrgencyLevel } from '../types/legal';
 
 export class DocumentClassifier {
@@ -87,7 +86,7 @@ export class DocumentClassifier {
   }
 
   private static extractKeywords(content: string, docType: DocumentType): string[] {
-    const patterns = this.CLASSIFICATION_PATTERNS[docType] || [];
+    const patterns = (this.CLASSIFICATION_PATTERNS[docType] || []) as string[];
     const found = patterns.filter(pattern => 
       content.toLowerCase().includes(pattern)
     );
