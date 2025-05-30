@@ -40,7 +40,7 @@ Analysera denna uppsägning/avhysning enligt svensk hyresrätt:
 7. KONTAKTER: Hyresgästföreningen, Kronofogden, tingsrätt
 
 Bedöm sannolikhet för framgång vid överklagande och ge konkreta handlingsalternativ.
-`;
+`,
 
     [DocumentType.BENEFIT_DECISION]: `
 Analysera detta beslut från svensk myndighet (Försäkringskassan/AF/Socialtjänst):
@@ -54,7 +54,7 @@ Analysera detta beslut från svensk myndighet (Försäkringskassan/AF/Socialtjä
 7. KONTAKTER: Förvaltningsrätt, Juristjouren, Stadsmissionen
 
 Föreslå strategi för överklagande och bedöm framgångschanser.
-`;
+`,
 
     [DocumentType.DEBT_NOTICE]: `
 Analysera denna inkasso/skuldsanering enligt svensk skuldrättslagstiftning:
@@ -92,7 +92,7 @@ VARNA FÖR:
 - Juridiska risker
 - Ekonomiska konsekvenser
 - Tidsfrister som inte får missas
-`;
+`,
 
     [LegalCategory.SOCIAL_BENEFITS]: `
 Besvara denna fråga om svenska välfärdssystem och socialförsäkringar:
@@ -113,7 +113,7 @@ KONTAKTINFORMATION:
 - Relevanta myndigheter
 - Rådgivningsorganisationer
 - Jurist- och medborgarjourer
-`;
+`,
 
     [LegalCategory.CONSUMER_RIGHTS]: `
 Analysera denna konsumenträttsliga fråga enligt svensk lag:
