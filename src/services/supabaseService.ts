@@ -1,18 +1,19 @@
 
 import { createClient } from '@supabase/supabase-js';
 import { supabase } from '@/integrations/supabase/client';
-import { LegalDocument, DocumentAnalysis } from '../types/legal';
+import { LegalDocument, DocumentAnalysis, DocumentType } from '../types/legal';
 
 export class SupabaseService {
-  static async storeDocument(document: Omit<LegalDocument, 'id' | 'created_at' | 'updated_at'>): Promise<LegalDocument> {
+  static async storeDocument(document: Omit<LegalDocument, 'id' | 'created_at' | 'updated_at'>, userId: string): Promise<LegalDocument> {
     const { data, error } = await supabase
       .from('documents')
       .insert({
-        detected_type: document.type,
+        user_id: userId,
+        detected_type: document.type as any, // Cast to database enum
         content_text: document.content,
-        metadata: document.metadata,
+        metadata: document.metadata as any, // Cast to Json type
         language_code: document.metadata?.language || 'sv',
-        urgency: document.metadata?.urgency_level,
+        urgency: document.metadata?.urgency_level as any,
         confidence_score: document.metadata?.confidence || 0,
         original_filename: document.metadata?.filename || null
       })
@@ -27,9 +28,9 @@ export class SupabaseService {
     // Transform database row to LegalDocument format
     return {
       id: data.id,
-      type: data.detected_type,
+      type: data.detected_type as DocumentType,
       content: data.content_text,
-      metadata: data.metadata,
+      metadata: data.metadata as any,
       analysis: undefined, // Will be populated separately
       created_at: data.created_at,
       updated_at: data.updated_at
@@ -43,11 +44,11 @@ export class SupabaseService {
         document_id: documentId,
         summary: analysis.summary,
         key_points: analysis.key_points,
-        legal_issues: analysis.legal_issues,
-        recommendations: analysis.recommendations,
-        next_steps: analysis.next_steps,
-        legal_references: analysis.references,
-        urgency_assessment: analysis.urgency_assessment,
+        legal_issues: analysis.legal_issues as any,
+        recommendations: analysis.recommendations as any,
+        next_steps: analysis.next_steps as any,
+        legal_references: analysis.references as any,
+        urgency_assessment: analysis.urgency_assessment as any,
         entities: {}, // Extract from metadata if needed
         confidence_score: 0.8, // Default confidence
         ai_model_used: 'mock-model',
@@ -88,9 +89,9 @@ export class SupabaseService {
     // Transform to LegalDocument format
     const document: LegalDocument = {
       id: docData.id,
-      type: docData.detected_type,
+      type: docData.detected_type as DocumentType,
       content: docData.content_text,
-      metadata: docData.metadata,
+      metadata: docData.metadata as any,
       created_at: docData.created_at,
       updated_at: docData.updated_at
     };
@@ -99,12 +100,12 @@ export class SupabaseService {
     if (analysisData) {
       document.analysis = {
         summary: analysisData.summary,
-        key_points: analysisData.key_points || [],
-        legal_issues: analysisData.legal_issues || [],
-        recommendations: analysisData.recommendations || [],
-        next_steps: analysisData.next_steps || [],
-        references: analysisData.legal_references || [],
-        urgency_assessment: analysisData.urgency_assessment || {}
+        key_points: (analysisData.key_points || []) as string[],
+        legal_issues: (analysisData.legal_issues || []) as any[],
+        recommendations: (analysisData.recommendations || []) as any[],
+        next_steps: (analysisData.next_steps || []) as any[],
+        references: (analysisData.legal_references || []) as any[],
+        urgency_assessment: (analysisData.urgency_assessment || {}) as any
       };
     }
 
@@ -126,19 +127,19 @@ export class SupabaseService {
 
     return (data || []).map(item => ({
       id: item.id,
-      type: item.detected_type,
+      type: item.detected_type as DocumentType,
       content: item.content_text,
-      metadata: item.metadata,
+      metadata: item.metadata as any,
       created_at: item.created_at,
       updated_at: item.updated_at
     }));
   }
 
-  static async getDocumentsByType(type: string, limit: number = 10): Promise<LegalDocument[]> {
+  static async getDocumentsByType(type: DocumentType, limit: number = 10): Promise<LegalDocument[]> {
     const { data, error } = await supabase
       .from('documents')
       .select('*')
-      .eq('detected_type', type)
+      .eq('detected_type', type as any)
       .limit(limit)
       .order('created_at', { ascending: false });
 
@@ -149,9 +150,9 @@ export class SupabaseService {
 
     return (data || []).map(item => ({
       id: item.id,
-      type: item.detected_type,
+      type: item.detected_type as DocumentType,
       content: item.content_text,
-      metadata: item.metadata,
+      metadata: item.metadata as any,
       created_at: item.created_at,
       updated_at: item.updated_at
     }));
@@ -228,10 +229,11 @@ export class SupabaseService {
     content: string;
     template_used?: string;
     metadata?: any;
-  }): Promise<any> {
+  }, userId: string): Promise<any> {
     const { data, error } = await supabase
       .from('letters')
       .insert({
+        user_id: userId,
         document_id: letter.document_id,
         letter_type: letter.letter_type,
         recipient_name: letter.recipient_name,
