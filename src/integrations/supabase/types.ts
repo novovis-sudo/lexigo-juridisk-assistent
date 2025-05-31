@@ -9,6 +9,166 @@ export type Json =
 export type Database = {
   public: {
     Tables: {
+      analysis_results: {
+        Row: {
+          ai_model_used: string | null
+          confidence_score: number | null
+          created_at: string | null
+          document_id: string
+          entities: Json | null
+          id: string
+          key_points: string[] | null
+          legal_issues: Json | null
+          legal_references: Json | null
+          next_steps: Json | null
+          processing_time_ms: number | null
+          recommendations: Json | null
+          summary: string
+          urgency_assessment: Json | null
+        }
+        Insert: {
+          ai_model_used?: string | null
+          confidence_score?: number | null
+          created_at?: string | null
+          document_id: string
+          entities?: Json | null
+          id?: string
+          key_points?: string[] | null
+          legal_issues?: Json | null
+          legal_references?: Json | null
+          next_steps?: Json | null
+          processing_time_ms?: number | null
+          recommendations?: Json | null
+          summary: string
+          urgency_assessment?: Json | null
+        }
+        Update: {
+          ai_model_used?: string | null
+          confidence_score?: number | null
+          created_at?: string | null
+          document_id?: string
+          entities?: Json | null
+          id?: string
+          key_points?: string[] | null
+          legal_issues?: Json | null
+          legal_references?: Json | null
+          next_steps?: Json | null
+          processing_time_ms?: number | null
+          recommendations?: Json | null
+          summary?: string
+          urgency_assessment?: Json | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "analysis_results_document_id_fkey"
+            columns: ["document_id"]
+            isOneToOne: false
+            referencedRelation: "documents"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      documents: {
+        Row: {
+          confidence_score: number | null
+          content_text: string
+          created_at: string | null
+          detected_type: Database["public"]["Enums"]["document_type"] | null
+          file_url: string | null
+          id: string
+          language_code: string | null
+          metadata: Json | null
+          original_filename: string | null
+          updated_at: string | null
+          urgency: Database["public"]["Enums"]["urgency_level"] | null
+          user_id: string
+        }
+        Insert: {
+          confidence_score?: number | null
+          content_text: string
+          created_at?: string | null
+          detected_type?: Database["public"]["Enums"]["document_type"] | null
+          file_url?: string | null
+          id?: string
+          language_code?: string | null
+          metadata?: Json | null
+          original_filename?: string | null
+          updated_at?: string | null
+          urgency?: Database["public"]["Enums"]["urgency_level"] | null
+          user_id: string
+        }
+        Update: {
+          confidence_score?: number | null
+          content_text?: string
+          created_at?: string | null
+          detected_type?: Database["public"]["Enums"]["document_type"] | null
+          file_url?: string | null
+          id?: string
+          language_code?: string | null
+          metadata?: Json | null
+          original_filename?: string | null
+          updated_at?: string | null
+          urgency?: Database["public"]["Enums"]["urgency_level"] | null
+          user_id?: string
+        }
+        Relationships: []
+      }
+      letters: {
+        Row: {
+          content: string
+          created_at: string | null
+          document_id: string | null
+          id: string
+          letter_type: string
+          metadata: Json | null
+          recipient_address: string | null
+          recipient_name: string | null
+          status: string | null
+          subject: string
+          template_used: string | null
+          updated_at: string | null
+          user_id: string
+        }
+        Insert: {
+          content: string
+          created_at?: string | null
+          document_id?: string | null
+          id?: string
+          letter_type: string
+          metadata?: Json | null
+          recipient_address?: string | null
+          recipient_name?: string | null
+          status?: string | null
+          subject: string
+          template_used?: string | null
+          updated_at?: string | null
+          user_id: string
+        }
+        Update: {
+          content?: string
+          created_at?: string | null
+          document_id?: string | null
+          id?: string
+          letter_type?: string
+          metadata?: Json | null
+          recipient_address?: string | null
+          recipient_name?: string | null
+          status?: string | null
+          subject?: string
+          template_used?: string | null
+          updated_at?: string | null
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "letters_document_id_fkey"
+            columns: ["document_id"]
+            isOneToOne: false
+            referencedRelation: "documents"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       requests: {
         Row: {
           created_at: string | null
@@ -38,7 +198,17 @@ export type Database = {
       [_ in never]: never
     }
     Enums: {
-      [_ in never]: never
+      document_type:
+        | "eviction_notice"
+        | "rental_contract"
+        | "court_decision"
+        | "benefit_decision"
+        | "employment_contract"
+        | "consumer_contract"
+        | "insurance_document"
+        | "debt_notice"
+        | "other"
+      urgency_level: "critical" | "high" | "medium" | "low"
     }
     CompositeTypes: {
       [_ in never]: never
@@ -153,6 +323,19 @@ export type CompositeTypes<
 
 export const Constants = {
   public: {
-    Enums: {},
+    Enums: {
+      document_type: [
+        "eviction_notice",
+        "rental_contract",
+        "court_decision",
+        "benefit_decision",
+        "employment_contract",
+        "consumer_contract",
+        "insurance_document",
+        "debt_notice",
+        "other",
+      ],
+      urgency_level: ["critical", "high", "medium", "low"],
+    },
   },
 } as const

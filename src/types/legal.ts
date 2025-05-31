@@ -29,6 +29,7 @@ export interface DocumentMetadata {
   amounts: number[];
   keywords: string[];
   urgency_level: UrgencyLevel;
+  filename?: string;
 }
 
 export enum UrgencyLevel {
@@ -122,4 +123,53 @@ export interface LegalAdvice {
   practical_steps: string[];
   warnings: string[];
   follow_up_questions: string[];
+}
+
+// Database-specific types that match the schema
+export interface DatabaseDocument {
+  id: string;
+  user_id: string;
+  original_filename?: string;
+  content_text: string;
+  file_url?: string;
+  detected_type?: DocumentType;
+  confidence_score?: number;
+  language_code?: string;
+  urgency?: UrgencyLevel;
+  metadata?: any;
+  created_at: string;
+  updated_at: string;
+}
+
+export interface DatabaseAnalysisResult {
+  id: string;
+  document_id: string;
+  summary: string;
+  key_points?: string[];
+  legal_issues?: any;
+  recommendations?: any;
+  next_steps?: any;
+  legal_references?: any;
+  urgency_assessment?: any;
+  entities?: any;
+  confidence_score?: number;
+  ai_model_used?: string;
+  processing_time_ms?: number;
+  created_at: string;
+}
+
+export interface DatabaseLetter {
+  id: string;
+  document_id?: string;
+  user_id: string;
+  letter_type: string;
+  recipient_name?: string;
+  recipient_address?: string;
+  subject: string;
+  content: string;
+  template_used?: string;
+  status?: 'draft' | 'generated' | 'sent';
+  metadata?: any;
+  created_at: string;
+  updated_at: string;
 }
