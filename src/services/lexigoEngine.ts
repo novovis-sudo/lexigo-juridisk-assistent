@@ -15,7 +15,7 @@ export class LexigoEngine {
   /**
    * Main entry point for document processing
    */
-  static async processDocument(content: string, fileName?: string): Promise<LegalDocument> {
+  static async processDocument(content: string, fileName?: string, userId: string = 'anonymous'): Promise<LegalDocument> {
     console.log('Processing document:', fileName || 'Unnamed document');
     
     // Step 1: Classify document type
@@ -31,7 +31,7 @@ export class LexigoEngine {
       type: docType,
       content,
       metadata
-    });
+    }, userId);
     
     // Step 4: Perform AI analysis
     try {
