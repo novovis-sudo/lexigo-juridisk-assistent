@@ -1,4 +1,11 @@
 
+// Import services for internal use
+import { DocumentService } from './documentService';
+import { AnalysisService } from './analysisService';
+import { QueryService } from './queryService';
+import { FileService } from './fileService';
+import { LetterService } from './letterService';
+
 // Re-export all services for backward compatibility
 export { DocumentService } from './documentService';
 export { AnalysisService } from './analysisService';
