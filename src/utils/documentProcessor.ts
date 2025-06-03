@@ -1,11 +1,18 @@
-
 import { DocumentType, UrgencyLevel } from '../types/legal';
+import { OCRService } from '../services/ocrService';
 
 export class DocumentProcessor {
   static async extractTextFromFile(file: File): Promise<string> {
-    // For now, we'll return a placeholder since proper text extraction
-    // would require additional libraries for PDF/DOCX parsing
-    return `Extracted text from ${file.name} (${file.type})`;
+    console.log('Extracting text from file using enhanced OCR service:', file.name);
+    
+    try {
+      // Use the new OCR service for better text extraction
+      return await OCRService.processDocument(file);
+    } catch (error) {
+      console.error('OCR extraction failed:', error);
+      // Fallback to basic extraction
+      return `Kunde inte extrahera text från ${file.name} (${file.type}). Filstorlek: ${file.size} bytes`;
+    }
   }
 
   static detectDocumentType(filename: string, content: string): DocumentType {

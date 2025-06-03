@@ -9,6 +9,35 @@ export type Json =
 export type Database = {
   public: {
     Tables: {
+      ai_analyses: {
+        Row: {
+          analysis: Json | null
+          created_at: string | null
+          document_id: string | null
+          id: string
+        }
+        Insert: {
+          analysis?: Json | null
+          created_at?: string | null
+          document_id?: string | null
+          id?: string
+        }
+        Update: {
+          analysis?: Json | null
+          created_at?: string | null
+          document_id?: string | null
+          id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "ai_analyses_document_id_fkey"
+            columns: ["document_id"]
+            isOneToOne: false
+            referencedRelation: "documents"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       analysis_results: {
         Row: {
           ai_model_used: string | null
@@ -68,6 +97,38 @@ export type Database = {
           },
         ]
       }
+      document_classifications: {
+        Row: {
+          category: string | null
+          confidence: number | null
+          created_at: string | null
+          document_id: string | null
+          id: string
+        }
+        Insert: {
+          category?: string | null
+          confidence?: number | null
+          created_at?: string | null
+          document_id?: string | null
+          id?: string
+        }
+        Update: {
+          category?: string | null
+          confidence?: number | null
+          created_at?: string | null
+          document_id?: string | null
+          id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "document_classifications_document_id_fkey"
+            columns: ["document_id"]
+            isOneToOne: false
+            referencedRelation: "documents"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       documents: {
         Row: {
           confidence_score: number | null
@@ -110,6 +171,99 @@ export type Database = {
           updated_at?: string | null
           urgency?: Database["public"]["Enums"]["urgency_level"] | null
           user_id?: string
+        }
+        Relationships: []
+      }
+      legal_concepts: {
+        Row: {
+          concept: string
+          created_at: string | null
+          description: string | null
+          id: string
+        }
+        Insert: {
+          concept: string
+          created_at?: string | null
+          description?: string | null
+          id?: string
+        }
+        Update: {
+          concept?: string
+          created_at?: string | null
+          description?: string | null
+          id?: string
+        }
+        Relationships: []
+      }
+      legal_precedents: {
+        Row: {
+          created_at: string | null
+          id: string
+          reference_link: string | null
+          summary: string | null
+          title: string
+        }
+        Insert: {
+          created_at?: string | null
+          id?: string
+          reference_link?: string | null
+          summary?: string | null
+          title: string
+        }
+        Update: {
+          created_at?: string | null
+          id?: string
+          reference_link?: string | null
+          summary?: string | null
+          title?: string
+        }
+        Relationships: []
+      }
+      legal_prompts: {
+        Row: {
+          created_at: string | null
+          id: string
+          prompt: string
+          title: string
+        }
+        Insert: {
+          created_at?: string | null
+          id?: string
+          prompt: string
+          title: string
+        }
+        Update: {
+          created_at?: string | null
+          id?: string
+          prompt?: string
+          title?: string
+        }
+        Relationships: []
+      }
+      legal_updates: {
+        Row: {
+          content: string | null
+          created_at: string | null
+          id: string
+          published_at: string | null
+          source: string | null
+          title: string
+        }
+        Insert: {
+          content?: string | null
+          created_at?: string | null
+          id?: string
+          published_at?: string | null
+          source?: string | null
+          title: string
+        }
+        Update: {
+          content?: string | null
+          created_at?: string | null
+          id?: string
+          published_at?: string | null
+          source?: string | null
+          title?: string
         }
         Relationships: []
       }
