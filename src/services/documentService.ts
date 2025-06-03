@@ -3,7 +3,7 @@ import { supabase } from '@/integrations/supabase/client';
 import { LegalDocument, DocumentAnalysis, DocumentType } from '../types/legal';
 
 export class DocumentService {
-  static async storeDocument(document: Omit<LegalDocument, 'id' | 'created_at' | 'updated_at'>, userId: string): Promise<LegalDocument> {
+  static async storeDocument(document: Omit<LegalDocument, 'id' | 'created_at' | 'updated_at'>, userId: string = 'test-user'): Promise<LegalDocument> {
     const { data, error } = await supabase
       .from('documents')
       .insert({
