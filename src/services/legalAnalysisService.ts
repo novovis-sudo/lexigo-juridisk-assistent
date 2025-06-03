@@ -1,4 +1,3 @@
-
 import { LegalDocument, DocumentAnalysis, LegalIssue, Recommendation, NextStep, LegalReference, UrgencyLevel, DocumentType } from '../types/legal';
 import { SwedishLegalDatabase } from './swedishLegalDatabase';
 import { ProContraAnalyzer } from './proContraAnalyzer';
@@ -7,9 +6,9 @@ export class LegalAnalysisService {
   static async performAdvancedAnalysis(document: LegalDocument): Promise<DocumentAnalysis> {
     console.log('Performing advanced legal analysis for document:', document.id);
     
-    // Extract legal concepts and arguments
+    // Extract legal concepts and legal points
     const legalConcepts = this.extractLegalConcepts(document.content);
-    const legalArguments = this.extractLegalArguments(document.content);
+    const legalPoints = this.extractLegalArguments(document.content);
     
     // Generate pro/contra analysis
     const proContraAnalysis = await ProContraAnalyzer.analyze(document.content, document.type);
@@ -22,7 +21,7 @@ export class LegalAnalysisService {
     const analysis: DocumentAnalysis = {
       summary: this.generateSummary(document),
       key_points: this.extractKeyPoints(document.content),
-      legal_issues: this.identifyLegalIssues(document, legalArguments),
+      legal_issues: this.identifyLegalIssues(document, legalPoints),
       recommendations: this.generateRecommendations(document, proContraAnalysis),
       next_steps: this.generateNextSteps(document),
       references: legalReferences,
@@ -63,22 +62,22 @@ export class LegalAnalysisService {
 
   private static extractLegalArguments(content: string): string[] {
     // Extract potential legal arguments based on content patterns
-    const arguments: string[] = [];
+    const legalPoints: string[] = [];
     
     if (content.toLowerCase().includes('störning')) {
-      arguments.push('Påstådd störning som grund för uppsägning');
+      legalPoints.push('Påstådd störning som grund för uppsägning');
     }
     if (content.toLowerCase().includes('hyresskuld')) {
-      arguments.push('Uteblivna hyresbetalningar');
+      legalPoints.push('Uteblivna hyresbetalningar');
     }
     if (content.toLowerCase().includes('fel') && content.toLowerCase().includes('vara')) {
-      arguments.push('Reklamation av defekt vara');
+      legalPoints.push('Reklamation av defekt vara');
     }
     if (content.toLowerCase().includes('diskriminering')) {
-      arguments.push('Misstänkt diskriminering');
+      legalPoints.push('Misstänkt diskriminering');
     }
     
-    return arguments;
+    return legalPoints;
   }
 
   private static generateSummary(document: LegalDocument): string {
@@ -120,16 +119,16 @@ export class LegalAnalysisService {
     return points.length > 0 ? points : ['Grundläggande juridisk dokumentation'];
   }
 
-  private static identifyLegalIssues(document: LegalDocument, arguments: string[]): LegalIssue[] {
+  private static identifyLegalIssues(document: LegalDocument, legalPoints: string[]): LegalIssue[] {
     const issues: LegalIssue[] = [];
     
-    for (const argument of arguments) {
+    for (const legalPoint of legalPoints) {
       issues.push({
-        title: argument,
-        description: `Juridisk fråga identifierad: ${argument}`,
-        severity: this.assessIssueSeverity(argument, document.type),
-        legal_basis: this.getLegalBasisForIssue(argument),
-        potential_outcomes: this.getPotentialOutcomes(argument)
+        title: legalPoint,
+        description: `Juridisk fråga identifierad: ${legalPoint}`,
+        severity: this.assessIssueSeverity(legalPoint, document.type),
+        legal_basis: this.getLegalBasisForIssue(legalPoint),
+        potential_outcomes: this.getPotentialOutcomes(legalPoint)
       });
     }
     
@@ -146,40 +145,40 @@ export class LegalAnalysisService {
     return issues;
   }
 
-  private static assessIssueSeverity(argument: string, docType: DocumentType): 'low' | 'medium' | 'high' | 'critical' {
-    if (argument.includes('uppsägning') || argument.includes('avhysning')) return 'critical';
-    if (argument.includes('inkasso') || argument.includes('betalningsanmärkning')) return 'high';
-    if (argument.includes('reklamation') || argument.includes('diskriminering')) return 'medium';
+  private static assessIssueSeverity(legalPoint: string, docType: DocumentType): 'low' | 'medium' | 'high' | 'critical' {
+    if (legalPoint.includes('uppsägning') || legalPoint.includes('avhysning')) return 'critical';
+    if (legalPoint.includes('inkasso') || legalPoint.includes('betalningsanmärkning')) return 'high';
+    if (legalPoint.includes('reklamation') || legalPoint.includes('diskriminering')) return 'medium';
     return 'low';
   }
 
-  private static getLegalBasisForIssue(argument: string): string[] {
+  private static getLegalBasisForIssue(legalPoint: string): string[] {
     const basis: string[] = [];
     
-    if (argument.includes('störning') || argument.includes('uppsägning')) {
+    if (legalPoint.includes('störning') || legalPoint.includes('uppsägning')) {
       basis.push('12 kap 46§ Jordabalken', 'Hyreslagstiftning');
     }
-    if (argument.includes('reklamation')) {
+    if (legalPoint.includes('reklamation')) {
       basis.push('Konsumentköplagen (KKL)', 'Köplagen');
     }
-    if (argument.includes('diskriminering')) {
+    if (legalPoint.includes('diskriminering')) {
       basis.push('Diskrimineringslagen (DiskL)');
     }
-    if (argument.includes('anställning')) {
+    if (legalPoint.includes('anställning')) {
       basis.push('Lagen om anställningsskydd (LAS)');
     }
     
     return basis.length > 0 ? basis : ['Svensk civilrätt'];
   }
 
-  private static getPotentialOutcomes(argument: string): string[] {
-    if (argument.includes('uppsägning')) {
+  private static getPotentialOutcomes(legalPoint: string): string[] {
+    if (legalPoint.includes('uppsägning')) {
       return ['Avhysning', 'Framgångsrikt bestridande', 'Förlikning med hyresvärd'];
     }
-    if (argument.includes('inkasso')) {
+    if (legalPoint.includes('inkasso')) {
       return ['Betalningsanmärkning', 'Avbetalningsplan', 'Skuldsanering'];
     }
-    if (argument.includes('reklamation')) {
+    if (legalPoint.includes('reklamation')) {
       return ['Ersättning', 'Reparation', 'Byte av vara', 'Prisavdrag'];
     }
     
