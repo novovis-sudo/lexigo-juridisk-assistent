@@ -3,16 +3,19 @@ import React, { useState } from 'react';
 import { TabsContent } from '@/components/ui/tabs';
 import LexigoHeader from './LexigoHeader';
 import LexigoNavigation from './LexigoNavigation';
+import AIAssistantView from './views/AIAssistantView';
 import AnalysView from './views/AnalysView';
 import ComparisonView from './views/ComparisonView';
 import OCRView from './views/OCRView';
 import LibraryView from './views/LibraryView';
 
 const LexigoApp = () => {
-  const [activeTab, setActiveTab] = useState('analys');
+  const [activeTab, setActiveTab] = useState('assistant');
 
   const renderActiveView = () => {
     switch (activeTab) {
+      case 'assistant':
+        return <AIAssistantView onNavigate={setActiveTab} />;
       case 'analys':
         return <AnalysView />;
       case 'jamforelse':
@@ -22,7 +25,7 @@ const LexigoApp = () => {
       case 'bibliotek':
         return <LibraryView />;
       default:
-        return <AnalysView />;
+        return <AIAssistantView onNavigate={setActiveTab} />;
     }
   };
 
