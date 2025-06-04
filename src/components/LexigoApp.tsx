@@ -30,10 +30,10 @@ const LexigoApp = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className="min-h-screen premium-gradient">
       <LexigoHeader />
       <LexigoNavigation activeTab={activeTab} onTabChange={setActiveTab} />
-      <main className="pb-8">
+      <main className="pb-12 animate-premium-fade-in">
         {renderActiveView()}
       </main>
     </div>
