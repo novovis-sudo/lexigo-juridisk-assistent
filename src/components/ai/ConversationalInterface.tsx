@@ -38,37 +38,37 @@ const ConversationalInterface: React.FC<ConversationalInterfaceProps> = ({
   };
 
   return (
-    <div className="max-w-5xl mx-auto p-8">
+    <div className="max-w-6xl mx-auto p-8">
       {/* Hero Section */}
-      <div className="text-center mb-12 section-divider">
-        <h2 className="text-4xl font-serif font-semibold text-ebony-950 mb-4 tracking-tight">
+      <div className="text-center mb-16">
+        <h2 className="text-5xl font-serif font-semibold text-white mb-6 tracking-tight text-gradient">
           Välkommen till Lexigo AI
         </h2>
-        <p className="text-lg text-ebony-700 max-w-2xl mx-auto leading-relaxed font-sans">
+        <p className="text-xl text-dark-300 max-w-3xl mx-auto leading-relaxed font-sans">
           Din intelligenta juridiska assistent som hjälper dig navigera svenskt rättssystem med precision och elegans
         </p>
       </div>
 
       {/* Premium Tab Interface */}
       <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full">
-        <TabsList className="grid w-full grid-cols-3 mb-8 bg-white/80 p-2 rounded-xl border border-parchment-300 shadow-premium backdrop-blur-sm">
+        <TabsList className="grid w-full grid-cols-3 mb-12 glass-effect p-2 rounded-xl">
           <TabsTrigger 
             value="chat" 
-            className="flex items-center gap-3 px-6 py-4 rounded-lg font-medium transition-all duration-200 data-[state=active]:bg-gold-600 data-[state=active]:text-ebony-950 data-[state=active]:shadow-gold-glow"
+            className="flex items-center gap-3 px-8 py-5 rounded-lg font-medium transition-all duration-200 data-[state=active]:bg-accent-600 data-[state=active]:text-white data-[state=active]:accent-glow text-dark-300"
           >
             <MessageSquare className="h-5 w-5" />
             Konversation
           </TabsTrigger>
           <TabsTrigger 
             value="suggestions" 
-            className="flex items-center gap-3 px-6 py-4 rounded-lg font-medium transition-all duration-200 data-[state=active]:bg-gold-600 data-[state=active]:text-ebony-950 data-[state=active]:shadow-gold-glow"
+            className="flex items-center gap-3 px-8 py-5 rounded-lg font-medium transition-all duration-200 data-[state=active]:bg-accent-600 data-[state=active]:text-white data-[state=active]:accent-glow text-dark-300"
           >
             <Lightbulb className="h-5 w-5" />
             Förslag
           </TabsTrigger>
           <TabsTrigger 
             value="insights" 
-            className="flex items-center gap-3 px-6 py-4 rounded-lg font-medium transition-all duration-200 data-[state=active]:bg-gold-600 data-[state=active]:text-ebony-950 data-[state=active]:shadow-gold-glow"
+            className="flex items-center gap-3 px-8 py-5 rounded-lg font-medium transition-all duration-200 data-[state=active]:bg-accent-600 data-[state=active]:text-white data-[state=active]:accent-glow text-dark-300"
           >
             <Target className="h-5 w-5" />
             Insikter
@@ -76,7 +76,7 @@ const ConversationalInterface: React.FC<ConversationalInterfaceProps> = ({
         </TabsList>
 
         <TabsContent value="chat" className="space-y-6">
-          <div className="premium-card p-8 rounded-xl">
+          <div className="premium-card p-10 rounded-xl">
             <AIChat 
               context={context}
               onSuggestionClick={(suggestion) => {
@@ -87,7 +87,7 @@ const ConversationalInterface: React.FC<ConversationalInterfaceProps> = ({
         </TabsContent>
 
         <TabsContent value="suggestions" className="space-y-6">
-          <div className="premium-card p-8 rounded-xl">
+          <div className="premium-card p-10 rounded-xl">
             <SmartSuggestions 
               onSuggestionClick={handleSuggestionClick}
               context={context}
@@ -96,7 +96,7 @@ const ConversationalInterface: React.FC<ConversationalInterfaceProps> = ({
         </TabsContent>
 
         <TabsContent value="insights" className="space-y-6">
-          <div className="premium-card p-8 rounded-xl">
+          <div className="premium-card p-10 rounded-xl">
             <AIInsights />
           </div>
         </TabsContent>

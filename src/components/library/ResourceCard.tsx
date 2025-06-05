@@ -19,26 +19,26 @@ interface ResourceCardProps {
 
 const ResourceCard = ({ resource }: ResourceCardProps) => {
   return (
-    <Card className="premium-card hover:shadow-premium-lg transition-shadow duration-300 p-6">
-      <div className="flex items-start justify-between mb-3">
-        <h5 className="font-serif font-medium text-lg text-ebony-950">
+    <Card className="premium-card hover:premium-shadow-lg transition-all duration-300 p-8 group">
+      <div className="flex items-start justify-between mb-4">
+        <h5 className="font-serif font-medium text-xl text-white group-hover:text-accent-400 transition-colors">
           {resource.title}
         </h5>
         {resource.type === 'official' && (
-          <span className="bg-blue-50 text-blue-700 text-xs px-2 py-1 rounded-full border border-blue-200">
+          <span className="bg-accent-600/20 text-accent-300 text-xs px-3 py-1 rounded-full border border-accent-500/30">
             Officiell
           </span>
         )}
       </div>
-      <p className="text-sm text-charcoal-600 mb-4 font-legal line-clamp-3">
+      <p className="text-dark-300 mb-6 font-sans leading-relaxed">
         {resource.description}
       </p>
       <Button
         variant="outline"
         onClick={() => window.open(resource.url, '_blank')}
-        className="w-full border-gold-200 text-gold-800 hover:bg-gold-50"
+        className="w-full border-accent-500/30 text-accent-300 hover:bg-accent-600/10 hover:border-accent-400 transition-all duration-200"
       >
-        <ExternalLink className="mr-2 h-3 w-3" />
+        <ExternalLink className="mr-2 h-4 w-4" />
         Besök webbplats
       </Button>
     </Card>

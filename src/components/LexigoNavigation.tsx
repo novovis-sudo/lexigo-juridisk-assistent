@@ -10,41 +10,41 @@ interface LexigoNavigationProps {
 
 const LexigoNavigation = ({ activeTab, onTabChange }: LexigoNavigationProps) => {
   return (
-    <div className="bg-white border-b border-parchment-300 px-8 py-6 shadow-soft">
+    <div className="bg-[#151517] border-b border-[#232329] px-8 py-6">
       <div className="max-w-7xl mx-auto">
         <Tabs value={activeTab} onValueChange={onTabChange}>
-          <TabsList className="grid w-full grid-cols-5 bg-parchment-200/50 p-2 rounded-xl border border-parchment-300 shadow-premium">
+          <TabsList className="grid w-full grid-cols-5 glass-effect p-2 rounded-xl">
             <TabsTrigger 
               value="assistant" 
-              className="flex items-center gap-3 px-6 py-4 rounded-lg font-medium text-sm transition-all duration-200 data-[state=active]:bg-gold-600 data-[state=active]:text-ebony-950 data-[state=active]:shadow-gold-glow hover:bg-parchment-100"
+              className="flex items-center gap-3 px-6 py-4 rounded-lg font-medium text-sm transition-all duration-200 data-[state=active]:bg-accent-600 data-[state=active]:text-white data-[state=active]:accent-glow hover:bg-[#1a1a1d] text-dark-300 data-[state=active]:shadow-md"
             >
               <Bot className="h-4 w-4" />
               AI-Assistent
             </TabsTrigger>
             <TabsTrigger 
               value="analys" 
-              className="flex items-center gap-3 px-6 py-4 rounded-lg font-medium text-sm transition-all duration-200 data-[state=active]:bg-gold-600 data-[state=active]:text-ebony-950 data-[state=active]:shadow-gold-glow hover:bg-parchment-100"
+              className="flex items-center gap-3 px-6 py-4 rounded-lg font-medium text-sm transition-all duration-200 data-[state=active]:bg-accent-600 data-[state=active]:text-white data-[state=active]:accent-glow hover:bg-[#1a1a1d] text-dark-300 data-[state=active]:shadow-md"
             >
               <FileText className="h-4 w-4" />
               Analys
             </TabsTrigger>
             <TabsTrigger 
               value="jamforelse" 
-              className="flex items-center gap-3 px-6 py-4 rounded-lg font-medium text-sm transition-all duration-200 data-[state=active]:bg-gold-600 data-[state=active]:text-ebony-950 data-[state=active]:shadow-gold-glow hover:bg-parchment-100"
+              className="flex items-center gap-3 px-6 py-4 rounded-lg font-medium text-sm transition-all duration-200 data-[state=active]:bg-accent-600 data-[state=active]:text-white data-[state=active]:accent-glow hover:bg-[#1a1a1d] text-dark-300 data-[state=active]:shadow-md"
             >
               <Scale className="h-4 w-4" />
               Jämförelse
             </TabsTrigger>
             <TabsTrigger 
               value="bild-till-text" 
-              className="flex items-center gap-3 px-6 py-4 rounded-lg font-medium text-sm transition-all duration-200 data-[state=active]:bg-gold-600 data-[state=active]:text-ebony-950 data-[state=active]:shadow-gold-glow hover:bg-parchment-100"
+              className="flex items-center gap-3 px-6 py-4 rounded-lg font-medium text-sm transition-all duration-200 data-[state=active]:bg-accent-600 data-[state=active]:text-white data-[state=active]:accent-glow hover:bg-[#1a1a1d] text-dark-300 data-[state=active]:shadow-md"
             >
               <Camera className="h-4 w-4" />
               Bild till Text
             </TabsTrigger>
             <TabsTrigger 
               value="bibliotek" 
-              className="flex items-center gap-3 px-6 py-4 rounded-lg font-medium text-sm transition-all duration-200 data-[state=active]:bg-gold-600 data-[state=active]:text-ebony-950 data-[state=active]:shadow-gold-glow hover:bg-parchment-100"
+              className="flex items-center gap-3 px-6 py-4 rounded-lg font-medium text-sm transition-all duration-200 data-[state=active]:bg-accent-600 data-[state=active]:text-white data-[state=active]:accent-glow hover:bg-[#1a1a1d] text-dark-300 data-[state=active]:shadow-md"
             >
               <BookOpen className="h-4 w-4" />
               Bibliotek
