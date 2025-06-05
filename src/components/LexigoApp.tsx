@@ -1,9 +1,8 @@
 
 import React, { useState } from 'react';
-import { TabsContent } from '@/components/ui/tabs';
 import LexigoHeader from './LexigoHeader';
 import LexigoNavigation from './LexigoNavigation';
-import AIAssistantView from './views/AIAssistantView';
+import LexigoHomepage from './LexigoHomepage';
 import AnalysView from './views/AnalysView';
 import ComparisonView from './views/ComparisonView';
 import OCRView from './views/OCRView';
@@ -15,7 +14,7 @@ const LexigoApp = () => {
   const renderActiveView = () => {
     switch (activeTab) {
       case 'assistant':
-        return <AIAssistantView onNavigate={setActiveTab} />;
+        return <LexigoHomepage />;
       case 'analys':
         return <AnalysView />;
       case 'jamforelse':
@@ -25,15 +24,15 @@ const LexigoApp = () => {
       case 'bibliotek':
         return <LibraryView />;
       default:
-        return <AIAssistantView onNavigate={setActiveTab} />;
+        return <LexigoHomepage />;
     }
   };
 
   return (
-    <div className="min-h-screen premium-gradient">
+    <div className="min-h-screen bg-gray-50">
       <LexigoHeader />
       <LexigoNavigation activeTab={activeTab} onTabChange={setActiveTab} />
-      <main className="pb-12 animate-premium-fade-in">
+      <main>
         {renderActiveView()}
       </main>
     </div>

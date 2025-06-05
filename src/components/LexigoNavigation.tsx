@@ -1,58 +1,45 @@
 
 import React from 'react';
-import { Tabs, TabsList, TabsTrigger } from '@/components/ui/tabs';
-import { FileText, Scale, Camera, BookOpen, Bot } from 'lucide-react';
+import { FileText, MessageSquare, Scale, BookOpen, Camera } from 'lucide-react';
 
 interface LexigoNavigationProps {
   activeTab: string;
   onTabChange: (tab: string) => void;
 }
 
-const LexigoNavigation = ({ activeTab, onTabChange }: LexigoNavigationProps) => {
+const LexigoNavigation: React.FC<LexigoNavigationProps> = ({ activeTab, onTabChange }) => {
+  const tabs = [
+    { id: 'assistant', label: 'AI-assistent', icon: MessageSquare },
+    { id: 'analys', label: 'Analys', icon: FileText },
+    { id: 'jamforelse', label: 'Jämförelse', icon: Scale },
+    { id: 'bild-till-text', label: 'OCR', icon: Camera },
+    { id: 'bibliotek', label: 'Bibliotek', icon: BookOpen },
+  ];
+
   return (
-    <div className="bg-[#151517] border-b border-[#232329] px-8 py-6">
-      <div className="max-w-7xl mx-auto">
-        <Tabs value={activeTab} onValueChange={onTabChange}>
-          <TabsList className="grid w-full grid-cols-5 glass-effect p-2 rounded-xl">
-            <TabsTrigger 
-              value="assistant" 
-              className="flex items-center gap-3 px-6 py-4 rounded-lg font-medium text-sm transition-all duration-200 data-[state=active]:bg-accent-600 data-[state=active]:text-white data-[state=active]:accent-glow hover:bg-[#1a1a1d] text-dark-300 data-[state=active]:shadow-md"
-            >
-              <Bot className="h-4 w-4" />
-              AI-Assistent
-            </TabsTrigger>
-            <TabsTrigger 
-              value="analys" 
-              className="flex items-center gap-3 px-6 py-4 rounded-lg font-medium text-sm transition-all duration-200 data-[state=active]:bg-accent-600 data-[state=active]:text-white data-[state=active]:accent-glow hover:bg-[#1a1a1d] text-dark-300 data-[state=active]:shadow-md"
-            >
-              <FileText className="h-4 w-4" />
-              Analys
-            </TabsTrigger>
-            <TabsTrigger 
-              value="jamforelse" 
-              className="flex items-center gap-3 px-6 py-4 rounded-lg font-medium text-sm transition-all duration-200 data-[state=active]:bg-accent-600 data-[state=active]:text-white data-[state=active]:accent-glow hover:bg-[#1a1a1d] text-dark-300 data-[state=active]:shadow-md"
-            >
-              <Scale className="h-4 w-4" />
-              Jämförelse
-            </TabsTrigger>
-            <TabsTrigger 
-              value="bild-till-text" 
-              className="flex items-center gap-3 px-6 py-4 rounded-lg font-medium text-sm transition-all duration-200 data-[state=active]:bg-accent-600 data-[state=active]:text-white data-[state=active]:accent-glow hover:bg-[#1a1a1d] text-dark-300 data-[state=active]:shadow-md"
-            >
-              <Camera className="h-4 w-4" />
-              Bild till Text
-            </TabsTrigger>
-            <TabsTrigger 
-              value="bibliotek" 
-              className="flex items-center gap-3 px-6 py-4 rounded-lg font-medium text-sm transition-all duration-200 data-[state=active]:bg-accent-600 data-[state=active]:text-white data-[state=active]:accent-glow hover:bg-[#1a1a1d] text-dark-300 data-[state=active]:shadow-md"
-            >
-              <BookOpen className="h-4 w-4" />
-              Bibliotek
-            </TabsTrigger>
-          </TabsList>
-        </Tabs>
+    <nav className="bg-white border-b border-gray-200">
+      <div className="container mx-auto px-6">
+        <div className="flex space-x-8 overflow-x-auto">
+          {tabs.map((tab) => {
+            const Icon = tab.icon;
+            return (
+              <button
+                key={tab.id}
+                onClick={() => onTabChange(tab.id)}
+                className={`flex items-center gap-2 px-4 py-4 text-sm font-medium whitespace-nowrap border-b-2 transition-colors ${
+                  activeTab === tab.id
+                    ? 'border-blue-600 text-blue-600'
+                    : 'border-transparent text-gray-600 hover:text-gray-900 hover:border-gray-300'
+                }`}
+              >
+                <Icon className="h-4 w-4" />
+                {tab.label}
+              </button>
+            );
+          })}
+        </div>
       </div>
-    </div>
+    </nav>
   );
 };
 

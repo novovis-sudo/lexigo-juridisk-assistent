@@ -180,23 +180,33 @@ export type Database = {
           created_at: string | null
           description: string | null
           id: string
+          related_tags: string[] | null
+          short_definition: string | null
+          term: string | null
         }
         Insert: {
           concept: string
           created_at?: string | null
           description?: string | null
           id?: string
+          related_tags?: string[] | null
+          short_definition?: string | null
+          term?: string | null
         }
         Update: {
           concept?: string
           created_at?: string | null
           description?: string | null
           id?: string
+          related_tags?: string[] | null
+          short_definition?: string | null
+          term?: string | null
         }
         Relationships: []
       }
       legal_precedents: {
         Row: {
+          case_date: string | null
           created_at: string | null
           id: string
           reference_link: string | null
@@ -204,6 +214,7 @@ export type Database = {
           title: string
         }
         Insert: {
+          case_date?: string | null
           created_at?: string | null
           id?: string
           reference_link?: string | null
@@ -211,6 +222,7 @@ export type Database = {
           title: string
         }
         Update: {
+          case_date?: string | null
           created_at?: string | null
           id?: string
           reference_link?: string | null
@@ -221,24 +233,38 @@ export type Database = {
       }
       legal_prompts: {
         Row: {
+          classification_id: string | null
           created_at: string | null
+          example_input: string | null
           id: string
           prompt: string
           title: string
         }
         Insert: {
+          classification_id?: string | null
           created_at?: string | null
+          example_input?: string | null
           id?: string
           prompt: string
           title: string
         }
         Update: {
+          classification_id?: string | null
           created_at?: string | null
+          example_input?: string | null
           id?: string
           prompt?: string
           title?: string
         }
-        Relationships: []
+        Relationships: [
+          {
+            foreignKeyName: "legal_prompts_classification_id_fkey"
+            columns: ["classification_id"]
+            isOneToOne: false
+            referencedRelation: "document_classifications"
+            referencedColumns: ["id"]
+          },
+        ]
       }
       legal_updates: {
         Row: {

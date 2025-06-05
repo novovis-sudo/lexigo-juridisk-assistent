@@ -57,7 +57,6 @@ const SmartSuggestions: React.FC<SmartSuggestionsProps> = ({ onSuggestionClick, 
   const getContextualSuggestions = (): Suggestion[] => {
     if (!context) return suggestions;
     
-    // Return suggestions based on context
     if (context.includes('uppsägning')) {
       return suggestions.filter(s => s.category === 'analysis' || s.category === 'library');
     }
@@ -66,36 +65,36 @@ const SmartSuggestions: React.FC<SmartSuggestionsProps> = ({ onSuggestionClick, 
   };
 
   return (
-    <div className="space-y-6">
-      <div className="flex items-center gap-3 mb-8">
-        <Lightbulb className="h-6 w-6 text-accent-400" />
-        <h3 className="text-2xl font-serif font-semibold text-white">Smarta förslag</h3>
+    <div className="space-y-6 bg-white rounded-lg p-6">
+      <div className="flex items-center gap-3 mb-6">
+        <Lightbulb className="h-6 w-6 text-blue-600" />
+        <h3 className="text-xl font-semibold text-gray-900">Smarta förslag</h3>
       </div>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
         {getContextualSuggestions().map((suggestion) => (
           <Card 
             key={suggestion.id}
-            className="premium-card p-8 hover:premium-shadow-lg transition-all duration-300 cursor-pointer border-2 border-transparent hover:border-accent-500/30 group"
+            className="p-6 hover:shadow-md transition-all duration-200 cursor-pointer border border-gray-200 hover:border-blue-300 group"
             onClick={() => onSuggestionClick(suggestion.action, suggestion.category)}
           >
             <div className="flex items-start gap-4">
-              <div className="bg-accent-600/20 p-4 rounded-xl flex-shrink-0 group-hover:bg-accent-600/30 transition-colors">
-                <div className="text-accent-400">
+              <div className="bg-blue-50 p-3 rounded-lg flex-shrink-0 group-hover:bg-blue-100 transition-colors">
+                <div className="text-blue-600">
                   {suggestion.icon}
                 </div>
               </div>
               <div className="flex-1 min-w-0">
-                <h4 className="font-serif font-medium text-white mb-2 text-lg group-hover:text-accent-400 transition-colors">
+                <h4 className="font-medium text-gray-900 mb-2 group-hover:text-blue-700 transition-colors">
                   {suggestion.title}
                 </h4>
-                <p className="text-sm text-dark-300 mb-6 font-sans leading-relaxed">
+                <p className="text-sm text-gray-600 mb-4 leading-relaxed">
                   {suggestion.description}
                 </p>
                 <Button 
                   variant="outline" 
                   size="sm" 
-                  className="border-accent-500/30 text-accent-300 hover:bg-accent-600/10 hover:border-accent-400 transition-all duration-200"
+                  className="border-blue-200 text-blue-600 hover:bg-blue-50 hover:border-blue-300"
                 >
                   Kom igång
                 </Button>
