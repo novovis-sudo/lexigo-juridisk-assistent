@@ -84,70 +84,92 @@ ${analysis.advice.follow_up_questions?.map(q => `? ${q}`).join('\n') || 'Inga up
   };
 
   return (
-    <div className="max-w-7xl mx-auto px-6 py-8 space-y-6">
-      <div className="text-center mb-8">
-        <h2 className="text-3xl font-bold text-gray-900 mb-2">Dokumentjämförelse</h2>
-        <p className="text-gray-600">
-          Jämför två dokument och hitta skillnader, svagheter och juridiska konflikter
-        </p>
-      </div>
-
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-6">
-        <div>
-          <h3 className="font-semibold mb-4 text-blue-600">Dokument A</h3>
-          <SmartUploadArea 
-            onFilesChange={setFilesA}
-            maxFiles={1}
-            title="Ladda upp första dokumentet"
-          />
+    <div className="min-h-screen bg-gradient-to-br from-parchment-50 via-parchment-100 to-parchment-200 relative">
+      {/* Subtle texture overlay */}
+      <div className="absolute inset-0 opacity-30 wood-texture pointer-events-none"></div>
+      
+      {/* Content */}
+      <div className="relative z-10 max-w-7xl mx-auto px-8 py-12 space-y-8">
+        <div className="text-center mb-12">
+          <div className="inline-flex items-center justify-center w-16 h-16 bg-gradient-to-br from-gold-500 to-gold-700 rounded-xl mb-6 shadow-gold-glow">
+            <Scale className="h-8 w-8 text-ebony-950" />
+          </div>
+          <h2 className="text-4xl font-serif font-semibold text-ebony-950 mb-4 tracking-tight">
+            Dokumentjämförelse
+          </h2>
+          <p className="text-lg text-charcoal-600 font-legal max-w-2xl mx-auto">
+            Jämför två dokument och hitta skillnader, svagheter och juridiska konflikter
+          </p>
         </div>
 
-        <div>
-          <h3 className="font-semibold mb-4 text-green-600">Dokument B</h3>
-          <SmartUploadArea 
-            onFilesChange={setFilesB}
-            maxFiles={1}
-            title="Ladda upp andra dokumentet"
-          />
-        </div>
-      </div>
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-8">
+          <div>
+            <div className="mb-6">
+              <div className="inline-flex items-center px-4 py-2 bg-gradient-to-r from-blue-500 to-blue-600 text-white rounded-lg font-medium">
+                Dokument A
+              </div>
+            </div>
+            <SmartUploadArea 
+              onFilesChange={setFilesA}
+              maxFiles={1}
+              title="Ladda upp första dokumentet"
+            />
+          </div>
 
-      <div className="text-center mb-6">
-        <Button 
-          onClick={handleCompare}
-          disabled={isComparing || filesA.length === 0 || filesB.length === 0}
-          size="lg"
-          className="bg-purple-600 hover:bg-purple-700"
-        >
-          {isComparing ? (
-            <>
-              <Loader2 className="mr-2 h-5 w-5 animate-spin" />
-              Jämför dokument...
-            </>
+          <div>
+            <div className="mb-6">
+              <div className="inline-flex items-center px-4 py-2 bg-gradient-to-r from-green-500 to-green-600 text-white rounded-lg font-medium">
+                Dokument B
+              </div>
+            </div>
+            <SmartUploadArea 
+              onFilesChange={setFilesB}
+              maxFiles={1}
+              title="Ladda upp andra dokumentet"
+            />
+          </div>
+        </div>
+
+        <div className="text-center mb-8">
+          <Button 
+            onClick={handleCompare}
+            disabled={isComparing || filesA.length === 0 || filesB.length === 0}
+            className="premium-button text-lg px-8 py-4"
+          >
+            {isComparing ? (
+              <>
+                <Loader2 className="mr-3 h-5 w-5 animate-spin" />
+                Jämför dokument...
+              </>
+            ) : (
+              <>
+                <Scale className="mr-3 h-5 w-5" />
+                Jämför dokument
+              </>
+            )}
+          </Button>
+        </div>
+
+        <Card className="premium-card p-8">
+          <h3 className="text-xl font-serif font-semibold text-ebony-950 mb-6">
+            Jämförelseresultat
+          </h3>
+          {comparisonResult ? (
+            <div className="bg-parchment-100 border border-parchment-300 p-6 rounded-xl">
+              <pre className="whitespace-pre-wrap text-sm text-ebony-950 font-legal leading-relaxed">
+                {comparisonResult}
+              </pre>
+            </div>
           ) : (
-            <>
-              <Scale className="mr-2 h-5 w-5" />
-              Jämför dokument
-            </>
+            <div className="text-center text-charcoal-500 py-20">
+              <Scale className="mx-auto h-16 w-16 text-charcoal-300 mb-6" />
+              <p className="text-lg font-legal">
+                Jämförelseresultat kommer att visas här efter bearbetning
+              </p>
+            </div>
           )}
-        </Button>
+        </Card>
       </div>
-
-      <Card className="p-6">
-        <h3 className="font-semibold mb-4">Jämförelseresultat</h3>
-        {comparisonResult ? (
-          <div className="bg-gray-50 p-4 rounded-lg">
-            <pre className="whitespace-pre-wrap text-sm text-gray-800">
-              {comparisonResult}
-            </pre>
-          </div>
-        ) : (
-          <div className="text-center text-gray-500 py-12">
-            <Scale className="mx-auto h-12 w-12 text-gray-300 mb-4" />
-            <p>Jämförelseresultat kommer att visas här efter bearbetning</p>
-          </div>
-        )}
-      </Card>
     </div>
   );
 };
