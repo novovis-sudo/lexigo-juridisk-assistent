@@ -84,28 +84,32 @@ ${analysis.advice.follow_up_questions?.map(q => `? ${q}`).join('\n') || 'Inga up
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-parchment-50 via-parchment-100 to-parchment-200 relative">
-      {/* Subtle texture overlay */}
-      <div className="absolute inset-0 opacity-30 wood-texture pointer-events-none"></div>
+    <div className="min-h-screen bg-gradient-to-br from-[#0f0f11] via-[#151517] to-[#1a1a1d] relative">
+      {/* Subtle grain overlay */}
+      <div className="absolute inset-0 opacity-[0.02] pointer-events-none" 
+           style={{
+             backgroundImage: `url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E")`
+           }}>
+      </div>
       
       {/* Content */}
-      <div className="relative z-10 max-w-7xl mx-auto px-8 py-12 space-y-8">
-        <div className="text-center mb-12">
-          <div className="inline-flex items-center justify-center w-16 h-16 bg-gradient-to-br from-gold-500 to-gold-700 rounded-xl mb-6 shadow-gold-glow">
-            <Scale className="h-8 w-8 text-ebony-950" />
+      <div className="relative z-10 max-w-7xl mx-auto px-8 py-16 space-y-12">
+        <div className="text-center mb-16">
+          <div className="inline-flex items-center justify-center w-20 h-20 bg-gradient-to-br from-accent-500 to-accent-600 rounded-2xl mb-8 accent-glow">
+            <Scale className="h-10 w-10 text-white" />
           </div>
-          <h2 className="text-4xl font-serif font-semibold text-ebony-950 mb-4 tracking-tight">
+          <h2 className="text-5xl font-serif font-semibold text-white mb-6 tracking-tight text-gradient">
             Dokumentjämförelse
           </h2>
-          <p className="text-lg text-charcoal-600 font-legal max-w-2xl mx-auto">
+          <p className="text-xl text-dark-300 font-sans max-w-3xl mx-auto leading-relaxed">
             Jämför två dokument och hitta skillnader, svagheter och juridiska konflikter
           </p>
         </div>
 
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-8">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 mb-12">
           <div>
-            <div className="mb-6">
-              <div className="inline-flex items-center px-4 py-2 bg-gradient-to-r from-blue-500 to-blue-600 text-white rounded-lg font-medium">
+            <div className="mb-8">
+              <div className="inline-flex items-center px-6 py-3 bg-gradient-to-r from-blue-500 to-blue-600 text-white rounded-xl font-semibold text-lg accent-glow">
                 Dokument A
               </div>
             </div>
@@ -117,8 +121,8 @@ ${analysis.advice.follow_up_questions?.map(q => `? ${q}`).join('\n') || 'Inga up
           </div>
 
           <div>
-            <div className="mb-6">
-              <div className="inline-flex items-center px-4 py-2 bg-gradient-to-r from-green-500 to-green-600 text-white rounded-lg font-medium">
+            <div className="mb-8">
+              <div className="inline-flex items-center px-6 py-3 bg-gradient-to-r from-green-500 to-green-600 text-white rounded-xl font-semibold text-lg accent-glow">
                 Dokument B
               </div>
             </div>
@@ -130,40 +134,40 @@ ${analysis.advice.follow_up_questions?.map(q => `? ${q}`).join('\n') || 'Inga up
           </div>
         </div>
 
-        <div className="text-center mb-8">
+        <div className="text-center mb-12">
           <Button 
             onClick={handleCompare}
             disabled={isComparing || filesA.length === 0 || filesB.length === 0}
-            className="premium-button text-lg px-8 py-4"
+            className="premium-button text-xl px-12 py-5"
           >
             {isComparing ? (
               <>
-                <Loader2 className="mr-3 h-5 w-5 animate-spin" />
+                <Loader2 className="mr-3 h-6 w-6 animate-spin" />
                 Jämför dokument...
               </>
             ) : (
               <>
-                <Scale className="mr-3 h-5 w-5" />
+                <Scale className="mr-3 h-6 w-6" />
                 Jämför dokument
               </>
             )}
           </Button>
         </div>
 
-        <Card className="premium-card p-8">
-          <h3 className="text-xl font-serif font-semibold text-ebony-950 mb-6">
+        <Card className="premium-card p-10">
+          <h3 className="text-2xl font-serif font-semibold text-white mb-8">
             Jämförelseresultat
           </h3>
           {comparisonResult ? (
-            <div className="bg-parchment-100 border border-parchment-300 p-6 rounded-xl">
-              <pre className="whitespace-pre-wrap text-sm text-ebony-950 font-legal leading-relaxed">
+            <div className="bg-[#1a1a1d] border border-[#232329] p-8 rounded-xl">
+              <pre className="whitespace-pre-wrap text-sm text-dark-200 font-sans leading-relaxed">
                 {comparisonResult}
               </pre>
             </div>
           ) : (
-            <div className="text-center text-charcoal-500 py-20">
-              <Scale className="mx-auto h-16 w-16 text-charcoal-300 mb-6" />
-              <p className="text-lg font-legal">
+            <div className="text-center text-dark-400 py-24">
+              <Scale className="mx-auto h-20 w-20 text-dark-500 mb-8" />
+              <p className="text-lg font-sans">
                 Jämförelseresultat kommer att visas här efter bearbetning
               </p>
             </div>

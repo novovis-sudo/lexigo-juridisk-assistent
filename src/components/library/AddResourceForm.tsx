@@ -52,8 +52,8 @@ const AddResourceForm = ({ onAddResource }: AddResourceFormProps) => {
 
   return (
     <>
-      <div className="flex justify-between items-center mb-8">
-        <h3 className="text-2xl font-serif font-medium text-ebony-950">Resurser</h3>
+      <div className="flex justify-between items-center mb-12">
+        <h3 className="text-3xl font-serif font-medium text-white">Resurser</h3>
         <Button 
           onClick={() => setShowForm(!showForm)}
           className="premium-button"
@@ -64,13 +64,13 @@ const AddResourceForm = ({ onAddResource }: AddResourceFormProps) => {
       </div>
 
       {showForm && (
-        <Card className="premium-card p-8 mb-8 border-l-4 border-l-gold-600">
-          <h4 className="text-xl font-serif font-semibold text-ebony-950 mb-6">
+        <Card className="premium-card p-10 mb-12 border-l-4 border-l-accent-600">
+          <h4 className="text-2xl font-serif font-semibold text-white mb-8">
             Lägg till ny juridisk resurs
           </h4>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-8">
             <div>
-              <label className="block text-sm font-medium text-charcoal-700 mb-2">
+              <label className="block text-sm font-medium text-dark-300 mb-3 font-sans">
                 Titel
               </label>
               <Input
@@ -81,7 +81,7 @@ const AddResourceForm = ({ onAddResource }: AddResourceFormProps) => {
               />
             </div>
             <div>
-              <label className="block text-sm font-medium text-charcoal-700 mb-2">
+              <label className="block text-sm font-medium text-dark-300 mb-3 font-sans">
                 Kategori
               </label>
               <Input
@@ -92,8 +92,8 @@ const AddResourceForm = ({ onAddResource }: AddResourceFormProps) => {
               />
             </div>
           </div>
-          <div className="mb-6">
-            <label className="block text-sm font-medium text-charcoal-700 mb-2">
+          <div className="mb-8">
+            <label className="block text-sm font-medium text-dark-300 mb-3 font-sans">
               URL
             </label>
             <Input
@@ -103,8 +103,8 @@ const AddResourceForm = ({ onAddResource }: AddResourceFormProps) => {
               className="premium-input"
             />
           </div>
-          <div className="mb-6">
-            <label className="block text-sm font-medium text-charcoal-700 mb-2">
+          <div className="mb-8">
+            <label className="block text-sm font-medium text-dark-300 mb-3 font-sans">
               Beskrivning
             </label>
             <Textarea
@@ -122,7 +122,7 @@ const AddResourceForm = ({ onAddResource }: AddResourceFormProps) => {
             <Button 
               variant="outline" 
               onClick={() => setShowForm(false)}
-              className="border-charcoal-300 text-charcoal-700 hover:bg-parchment-200"
+              className="border-[#232329] text-dark-300 hover:bg-[#1a1a1d] hover:border-[#3a3a3e]"
             >
               Avbryt
             </Button>
