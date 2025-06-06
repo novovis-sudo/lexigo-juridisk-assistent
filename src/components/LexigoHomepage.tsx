@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from 'react';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
@@ -117,70 +116,68 @@ const LexigoHomepage = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gray-50">
-      <div className="container mx-auto px-6 py-8 max-w-6xl">
+    <div className="min-h-screen bg-[#fdfcf9]">
+      <div className="luxury-container">
         {/* Main Query Section */}
-        <Card className="mb-8">
-          <CardContent className="p-6">
-            <form onSubmit={handleSubmit} className="space-y-4">
-              <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-                <div className="md:col-span-1">
-                  <Select value={selectedCategory} onValueChange={setSelectedCategory}>
-                    <SelectTrigger>
-                      <SelectValue placeholder="Välj kategori..." />
-                    </SelectTrigger>
-                    <SelectContent>
-                      {categories.map((category) => (
-                        <SelectItem key={category.id} value={category.id}>
-                          {category.category}
-                        </SelectItem>
-                      ))}
-                    </SelectContent>
-                  </Select>
-                </div>
-                <div className="md:col-span-2">
-                  <div className="flex gap-2">
-                    <Input
-                      value={query}
-                      onChange={(e) => setQuery(e.target.value)}
-                      placeholder="Skriv din juridiska fråga här..."
-                      className="flex-1"
-                    />
-                    <Button type="submit" disabled={isLoading}>
-                      <MessageSquare className="h-4 w-4 mr-2" />
-                      {isLoading ? 'Genererar...' : 'Fråga AI'}
-                    </Button>
-                  </div>
+        <div className="luxury-card mb-12 p-8">
+          <form onSubmit={handleSubmit} className="space-y-6">
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+              <div className="md:col-span-1">
+                <Select value={selectedCategory} onValueChange={setSelectedCategory}>
+                  <SelectTrigger className="luxury-select">
+                    <SelectValue placeholder="Välj kategori..." />
+                  </SelectTrigger>
+                  <SelectContent className="bg-white border-2 border-gray-200 rounded-xl shadow-lg">
+                    {categories.map((category) => (
+                      <SelectItem key={category.id} value={category.id} className="hover:bg-gray-50 rounded-lg">
+                        {category.category}
+                      </SelectItem>
+                    ))}
+                  </SelectContent>
+                </Select>
+              </div>
+              <div className="md:col-span-2">
+                <div className="flex gap-3">
+                  <Input
+                    value={query}
+                    onChange={(e) => setQuery(e.target.value)}
+                    placeholder="Skriv din juridiska fråga här..."
+                    className="luxury-input flex-1"
+                  />
+                  <Button type="submit" disabled={isLoading} className="luxury-button-primary">
+                    <MessageSquare className="h-5 w-5 mr-2" />
+                    {isLoading ? 'Genererar...' : 'Fråga AI'}
+                  </Button>
                 </div>
               </div>
-            </form>
+            </div>
+          </form>
 
-            {aiResponse && (
-              <div className="mt-6 p-4 bg-blue-50 rounded-lg border border-blue-200">
-                <h3 className="font-medium text-blue-900 mb-2">AI-svar:</h3>
-                <p className="text-blue-800 whitespace-pre-line">{aiResponse}</p>
-              </div>
-            )}
-          </CardContent>
-        </Card>
+          {aiResponse && (
+            <div className="mt-8 p-6 bg-[#a1eacf]/10 rounded-2xl border-2 border-[#a1eacf]/20">
+              <h3 className="font-semibold text-black mb-4 text-xl">AI-svar:</h3>
+              <p className="text-black/80 whitespace-pre-line leading-relaxed">{aiResponse}</p>
+            </div>
+          )}
+        </div>
 
         {/* Legal Concepts Grid */}
-        <div className="mb-8">
-          <h2 className="text-2xl font-bold text-gray-900 mb-6">Juridiska begrepp</h2>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <div className="section-divider">
+          <h2 className="text-4xl font-bold text-black mb-8 text-center">Juridiska begrepp</h2>
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
             {legalConcepts.map((concept) => (
-              <Card key={concept.id} className="hover:shadow-md transition-shadow">
-                <CardHeader className="pb-3">
-                  <CardTitle className="text-lg">{concept.term}</CardTitle>
+              <Card key={concept.id} className="luxury-card hover:scale-105 transition-transform duration-300 p-6">
+                <CardHeader className="pb-4">
+                  <CardTitle className="text-xl text-black">{concept.term}</CardTitle>
                 </CardHeader>
                 <CardContent>
-                  <CardDescription className="mb-3">
+                  <CardDescription className="mb-4 text-gray-700 leading-relaxed">
                     {concept.short_definition}
                   </CardDescription>
                   {concept.related_tags && concept.related_tags.length > 0 && (
-                    <div className="flex flex-wrap gap-1">
+                    <div className="flex flex-wrap gap-2">
                       {concept.related_tags.slice(0, 3).map((tag, index) => (
-                        <Badge key={index} variant="secondary" className="text-xs">
+                        <Badge key={index} className="bg-[#ffe663] text-black text-xs px-3 py-1 rounded-full">
                           {tag}
                         </Badge>
                       ))}
@@ -194,15 +191,15 @@ const LexigoHomepage = () => {
 
         {/* Legal Precedents */}
         <div>
-          <h2 className="text-2xl font-bold text-gray-900 mb-6">Rättsfall och prejudikat</h2>
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+          <h2 className="text-4xl font-bold text-black mb-8 text-center">Rättsfall och prejudikat</h2>
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
             {legalPrecedents.map((precedent) => (
-              <Card key={precedent.id} className="hover:shadow-md transition-shadow">
+              <Card key={precedent.id} className="luxury-card hover:scale-105 transition-transform duration-300 p-6">
                 <CardHeader>
                   <div className="flex items-start justify-between">
-                    <CardTitle className="text-lg pr-4">{precedent.title}</CardTitle>
+                    <CardTitle className="text-xl pr-4 text-black">{precedent.title}</CardTitle>
                     {precedent.reference_link && (
-                      <Button variant="ghost" size="sm" asChild>
+                      <Button variant="ghost" size="sm" asChild className="hover:bg-gray-100 rounded-xl">
                         <a href={precedent.reference_link} target="_blank" rel="noopener noreferrer">
                           <ExternalLink className="h-4 w-4" />
                         </a>
@@ -217,7 +214,7 @@ const LexigoHomepage = () => {
                   )}
                 </CardHeader>
                 <CardContent>
-                  <CardDescription>{precedent.summary}</CardDescription>
+                  <CardDescription className="text-gray-700 leading-relaxed">{precedent.summary}</CardDescription>
                 </CardContent>
               </Card>
             ))}

@@ -28,15 +28,7 @@ export type Database = {
           document_id?: string | null
           id?: string
         }
-        Relationships: [
-          {
-            foreignKeyName: "ai_analyses_document_id_fkey"
-            columns: ["document_id"]
-            isOneToOne: false
-            referencedRelation: "documents"
-            referencedColumns: ["id"]
-          },
-        ]
+        Relationships: []
       }
       analysis_results: {
         Row: {
@@ -54,6 +46,7 @@ export type Database = {
           recommendations: Json | null
           summary: string
           urgency_assessment: Json | null
+          user_id: string
         }
         Insert: {
           ai_model_used?: string | null
@@ -70,6 +63,7 @@ export type Database = {
           recommendations?: Json | null
           summary: string
           urgency_assessment?: Json | null
+          user_id?: string
         }
         Update: {
           ai_model_used?: string | null
@@ -86,146 +80,107 @@ export type Database = {
           recommendations?: Json | null
           summary?: string
           urgency_assessment?: Json | null
+          user_id?: string
         }
-        Relationships: [
-          {
-            foreignKeyName: "analysis_results_document_id_fkey"
-            columns: ["document_id"]
-            isOneToOne: false
-            referencedRelation: "documents"
-            referencedColumns: ["id"]
-          },
-        ]
+        Relationships: []
       }
       document_classifications: {
         Row: {
-          category: string | null
-          confidence: number | null
           created_at: string | null
-          document_id: string | null
+          description: string | null
           id: string
+          label: string
         }
         Insert: {
-          category?: string | null
-          confidence?: number | null
           created_at?: string | null
-          document_id?: string | null
+          description?: string | null
           id?: string
+          label: string
         }
         Update: {
-          category?: string | null
-          confidence?: number | null
           created_at?: string | null
-          document_id?: string | null
+          description?: string | null
           id?: string
+          label?: string
         }
-        Relationships: [
-          {
-            foreignKeyName: "document_classifications_document_id_fkey"
-            columns: ["document_id"]
-            isOneToOne: false
-            referencedRelation: "documents"
-            referencedColumns: ["id"]
-          },
-        ]
+        Relationships: []
       }
       documents: {
         Row: {
-          confidence_score: number | null
-          content_text: string
+          content: string
           created_at: string | null
-          detected_type: Database["public"]["Enums"]["document_type"] | null
-          file_url: string | null
-          id: string
-          language_code: string | null
-          metadata: Json | null
-          original_filename: string | null
-          updated_at: string | null
-          urgency: Database["public"]["Enums"]["urgency_level"] | null
-          user_id: string
+          id: number
+          title: string
+          user_id: string | null
         }
         Insert: {
-          confidence_score?: number | null
-          content_text: string
+          content: string
           created_at?: string | null
-          detected_type?: Database["public"]["Enums"]["document_type"] | null
-          file_url?: string | null
-          id?: string
-          language_code?: string | null
-          metadata?: Json | null
-          original_filename?: string | null
-          updated_at?: string | null
-          urgency?: Database["public"]["Enums"]["urgency_level"] | null
-          user_id: string
+          id?: never
+          title: string
+          user_id?: string | null
         }
         Update: {
-          confidence_score?: number | null
-          content_text?: string
+          content?: string
           created_at?: string | null
-          detected_type?: Database["public"]["Enums"]["document_type"] | null
-          file_url?: string | null
-          id?: string
-          language_code?: string | null
-          metadata?: Json | null
-          original_filename?: string | null
-          updated_at?: string | null
-          urgency?: Database["public"]["Enums"]["urgency_level"] | null
-          user_id?: string
+          id?: never
+          title?: string
+          user_id?: string | null
         }
         Relationships: []
       }
       legal_concepts: {
         Row: {
-          concept: string
+          concept: string | null
           created_at: string | null
-          description: string | null
           id: string
+          long_definition: string | null
           related_tags: string[] | null
           short_definition: string | null
-          term: string | null
+          term: string
         }
         Insert: {
-          concept: string
+          concept?: string | null
           created_at?: string | null
-          description?: string | null
           id?: string
+          long_definition?: string | null
           related_tags?: string[] | null
           short_definition?: string | null
-          term?: string | null
+          term: string
         }
         Update: {
-          concept?: string
+          concept?: string | null
           created_at?: string | null
-          description?: string | null
           id?: string
+          long_definition?: string | null
           related_tags?: string[] | null
           short_definition?: string | null
-          term?: string | null
+          term?: string
         }
         Relationships: []
       }
       legal_precedents: {
         Row: {
-          case_date: string | null
+          case_date: string
           created_at: string | null
           id: string
-          reference_link: string | null
+          link: string | null
           summary: string | null
           title: string
         }
         Insert: {
-          case_date?: string | null
+          case_date: string
           created_at?: string | null
           id?: string
-          reference_link?: string | null
+          link?: string | null
           summary?: string | null
           title: string
         }
         Update: {
-          case_date?: string | null
+          case_date?: string
           created_at?: string | null
           id?: string
-          reference_link?: string | null
+          link?: string | null
           summary?: string | null
           title?: string
         }
@@ -233,38 +188,30 @@ export type Database = {
       }
       legal_prompts: {
         Row: {
-          classification_id: string | null
+          category: string
           created_at: string | null
-          example_input: string | null
+          description: string | null
+          document_classification_id: string | null
           id: string
           prompt: string
-          title: string
         }
         Insert: {
-          classification_id?: string | null
+          category: string
           created_at?: string | null
-          example_input?: string | null
+          description?: string | null
+          document_classification_id?: string | null
           id?: string
           prompt: string
-          title: string
         }
         Update: {
-          classification_id?: string | null
+          category?: string
           created_at?: string | null
-          example_input?: string | null
+          description?: string | null
+          document_classification_id?: string | null
           id?: string
           prompt?: string
-          title?: string
         }
-        Relationships: [
-          {
-            foreignKeyName: "legal_prompts_classification_id_fkey"
-            columns: ["classification_id"]
-            isOneToOne: false
-            referencedRelation: "document_classifications"
-            referencedColumns: ["id"]
-          },
-        ]
+        Relationships: []
       }
       legal_updates: {
         Row: {
@@ -339,15 +286,7 @@ export type Database = {
           updated_at?: string | null
           user_id?: string
         }
-        Relationships: [
-          {
-            foreignKeyName: "letters_document_id_fkey"
-            columns: ["document_id"]
-            isOneToOne: false
-            referencedRelation: "documents"
-            referencedColumns: ["id"]
-          },
-        ]
+        Relationships: []
       }
       requests: {
         Row: {
