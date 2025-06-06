@@ -1,3 +1,4 @@
+
 import React, { useState, useEffect } from 'react';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
@@ -19,12 +20,12 @@ interface LegalPrecedent {
   title: string;
   case_date: string;
   summary: string;
-  reference_link: string;
+  link: string;
 }
 
 interface DocumentClassification {
   id: string;
-  category: string;
+  label: string;
 }
 
 const LexigoHomepage = () => {
@@ -60,7 +61,7 @@ const LexigoHomepage = () => {
     try {
       const { data, error } = await supabase
         .from('legal_precedents')
-        .select('id, title, case_date, summary, reference_link')
+        .select('id, title, case_date, summary, link')
         .limit(4);
       
       if (error) throw error;
@@ -74,8 +75,8 @@ const LexigoHomepage = () => {
     try {
       const { data, error } = await supabase
         .from('document_classifications')
-        .select('id, category')
-        .order('category');
+        .select('id, label')
+        .order('label');
       
       if (error) throw error;
       setCategories(data || []);
@@ -95,15 +96,15 @@ const LexigoHomepage = () => {
       if (selectedCategory) {
         const { data } = await supabase
           .from('legal_prompts')
-          .select('prompt, title')
-          .eq('classification_id', selectedCategory)
-          .single();
+          .select('prompt, category')
+          .eq('document_classification_id', selectedCategory)
+          .maybeSingle();
         promptData = data;
       }
 
       // Simulate AI response (in a real app, this would call an AI service)
       const response = promptData 
-        ? `Baserat på ${promptData.title}: ${promptData.prompt}\n\nDin fråga: "${query}"\n\nDetta är en simulerad AI-respons som skulle ge rättslig vägledning baserat på svensk lag.`
+        ? `Baserat på ${promptData.category}: ${promptData.prompt}\n\nDin fråga: "${query}"\n\nDetta är en simulerad AI-respons som skulle ge rättslig vägledning baserat på svensk lag.`
         : `Din fråga: "${query}"\n\nDetta är en simulerad AI-respons som skulle ge allmän rättslig vägledning baserat på svensk lag.`;
       
       setAiResponse(response);
@@ -130,7 +131,7 @@ const LexigoHomepage = () => {
                   <SelectContent className="bg-white border-2 border-gray-200 rounded-xl shadow-lg">
                     {categories.map((category) => (
                       <SelectItem key={category.id} value={category.id} className="hover:bg-gray-50 rounded-lg">
-                        {category.category}
+                        {category.label}
                       </SelectItem>
                     ))}
                   </SelectContent>
@@ -198,9 +199,9 @@ const LexigoHomepage = () => {
                 <CardHeader>
                   <div className="flex items-start justify-between">
                     <CardTitle className="text-xl pr-4 text-black">{precedent.title}</CardTitle>
-                    {precedent.reference_link && (
+                    {precedent.link && (
                       <Button variant="ghost" size="sm" asChild className="hover:bg-gray-100 rounded-xl">
-                        <a href={precedent.reference_link} target="_blank" rel="noopener noreferrer">
+                        <a href={precedent.link} target="_blank" rel="noopener noreferrer">
                           <ExternalLink className="h-4 w-4" />
                         </a>
                       </Button>
