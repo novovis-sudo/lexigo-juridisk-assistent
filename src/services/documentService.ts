@@ -33,11 +33,17 @@ export class DocumentService {
   }
 
   static async getDocument(documentId: string): Promise<LegalDocument | null> {
+    // Convert string ID to number for database query
+    const numericId = parseInt(documentId);
+    if (isNaN(numericId)) {
+      return null;
+    }
+
     // Get document
     const { data: docData, error: docError } = await supabase
       .from('documents')
       .select('*')
-      .eq('id', parseInt(documentId))
+      .eq('id', numericId)
       .single();
 
     if (docError) {
