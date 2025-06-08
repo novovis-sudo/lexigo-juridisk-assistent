@@ -7,6 +7,7 @@ import AnalysView from './views/AnalysView';
 import ComparisonView from './views/ComparisonView';
 import OCRView from './views/OCRView';
 import LibraryView from './views/LibraryView';
+import AIAssistantView from './views/AIAssistantView';
 
 const LexigoApp = () => {
   const [activeTab, setActiveTab] = useState('assistant');
@@ -14,6 +15,8 @@ const LexigoApp = () => {
   const renderActiveView = () => {
     switch (activeTab) {
       case 'assistant':
+        return <AIAssistantView onNavigate={setActiveTab} />;
+      case 'hem':
         return <LexigoHomepage />;
       case 'analys':
         return <AnalysView />;
@@ -24,7 +27,7 @@ const LexigoApp = () => {
       case 'bibliotek':
         return <LibraryView />;
       default:
-        return <LexigoHomepage />;
+        return <AIAssistantView onNavigate={setActiveTab} />;
     }
   };
 

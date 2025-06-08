@@ -1,6 +1,6 @@
 
 import React from 'react';
-import ConversationalInterface from '../ai/ConversationalInterface';
+import EnhancedLexigoChat from '../ai/EnhancedLexigoChat';
 
 interface AIAssistantViewProps {
   onNavigate?: (view: string) => void;
@@ -17,8 +17,12 @@ const AIAssistantView: React.FC<AIAssistantViewProps> = ({ onNavigate }) => {
       </div>
       
       {/* Content */}
-      <div className="relative z-10">
-        <ConversationalInterface onNavigate={onNavigate} />
+      <div className="relative z-10 container mx-auto px-4 py-8">
+        <div className="max-w-4xl mx-auto">
+          <div className="bg-white rounded-lg shadow-2xl overflow-hidden">
+            <EnhancedLexigoChat onNavigate={onNavigate} />
+          </div>
+        </div>
       </div>
     </div>
   );
