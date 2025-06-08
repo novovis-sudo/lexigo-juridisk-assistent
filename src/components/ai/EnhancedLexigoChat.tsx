@@ -23,6 +23,36 @@ interface EnhancedLexigoChatProps {
   onNavigate?: (view: string) => void;
 }
 
+const getAnalysisTypeDescription = (type: string): string => {
+  const descriptions = {
+    summary: 'Sammanfattning av dokument',
+    weaknesses: 'Analys av svagheter',
+    counterarguments: 'Motargument',
+    improvements: 'Förbättringsförslag',
+    full: 'Fullständig juridisk analys'
+  };
+  return descriptions[type as keyof typeof descriptions] || 'Analys';
+};
+
+const generateContextualSuggestions = (input: string): string[] => {
+  if (input.includes('brev')) {
+    return ['Formell invändning', 'Förhandlingsförslag', 'Begäran om förtydligande'];
+  }
+  if (input.includes('rättsfall')) {
+    return ['Hyresrättsliga prejudikat', 'Konsumenträttspraxis', 'Förvaltningsrättsliga avgöranden'];
+  }
+  return ['Nästa steg', 'Juridisk rådgivning', 'Tidsfrist att kontrollera'];
+};
+
+const getUrgencyColor = (urgency: string) => {
+  switch (urgency) {
+    case 'critical': return 'bg-red-100 text-red-800 border-red-200';
+    case 'high': return 'bg-orange-100 text-orange-800 border-orange-200';
+    case 'medium': return 'bg-yellow-100 text-yellow-800 border-yellow-200';
+    default: return 'bg-green-100 text-green-800 border-green-200';
+  }
+};
+
 const EnhancedLexigoChat: React.FC<EnhancedLexigoChatProps> = ({ onNavigate }) => {
   const [messages, setMessages] = useState<Message[]>([
     {
@@ -76,7 +106,7 @@ const EnhancedLexigoChat: React.FC<EnhancedLexigoChatProps> = ({ onNavigate }) =
       const analysisMessage: Message = {
         id: Date.now().toString(),
         type: 'analysis',
-        content: this.getAnalysisTypeDescription(analysisType),
+        content: getAnalysisTypeDescription(analysisType),
         timestamp: new Date(),
         analysis,
         suggestions: analysis.followUpQuestions
@@ -86,7 +116,7 @@ const EnhancedLexigoChat: React.FC<EnhancedLexigoChatProps> = ({ onNavigate }) =
 
       toast({
         title: "Analys klar",
-        description: `Lexigo har slutfört ${this.getAnalysisTypeDescription(analysisType).toLowerCase()}.`
+        description: `Lexigo har slutfört ${getAnalysisTypeDescription(analysisType).toLowerCase()}.`
       });
 
     } catch (error) {
@@ -99,17 +129,6 @@ const EnhancedLexigoChat: React.FC<EnhancedLexigoChatProps> = ({ onNavigate }) =
     } finally {
       setIsAnalyzing(false);
     }
-  };
-
-  const getAnalysisTypeDescription = (type: string): string => {
-    const descriptions = {
-      summary: 'Sammanfattning av dokument',
-      weaknesses: 'Analys av svagheter',
-      counterarguments: 'Motargument',
-      improvements: 'Förbättringsförslag',
-      full: 'Fullständig juridisk analys'
-    };
-    return descriptions[type as keyof typeof descriptions] || 'Analys';
   };
 
   const handleSendMessage = async () => {
@@ -134,7 +153,7 @@ const EnhancedLexigoChat: React.FC<EnhancedLexigoChatProps> = ({ onNavigate }) =
         type: 'lexigo',
         content: response,
         timestamp: new Date(),
-        suggestions: this.generateContextualSuggestions(currentInput)
+        suggestions: generateContextualSuggestions(currentInput)
       };
 
       setMessages(prev => [...prev, lexigoResponse]);
@@ -148,16 +167,6 @@ const EnhancedLexigoChat: React.FC<EnhancedLexigoChatProps> = ({ onNavigate }) =
     }
   };
 
-  const generateContextualSuggestions = (input: string): string[] => {
-    if (input.includes('brev')) {
-      return ['Formell invändning', 'Förhandlingsförslag', 'Begäran om förtydligande'];
-    }
-    if (input.includes('rättsfall')) {
-      return ['Hyresrättsliga prejudikat', 'Konsumenträttspraxis', 'Förvaltningsrättsliga avgöranden'];
-    }
-    return ['Nästa steg', 'Juridisk rådgivning', 'Tidsfrist att kontrollera'];
-  };
-
   const handleSuggestionClick = (suggestion: string) => {
     if (suggestion.includes('Analysera') || suggestion.includes('dokument')) {
       setShowDocumentInput(true);
@@ -169,15 +178,6 @@ const EnhancedLexigoChat: React.FC<EnhancedLexigoChatProps> = ({ onNavigate }) =
       handleAnalysisRequest('improvements');
     } else {
       setInputValue(suggestion);
-    }
-  };
-
-  const getUrgencyColor = (urgency: string) => {
-    switch (urgency) {
-      case 'critical': return 'bg-red-100 text-red-800 border-red-200';
-      case 'high': return 'bg-orange-100 text-orange-800 border-orange-200';
-      case 'medium': return 'bg-yellow-100 text-yellow-800 border-yellow-200';
-      default: return 'bg-green-100 text-green-800 border-green-200';
     }
   };
 
@@ -260,7 +260,7 @@ const EnhancedLexigoChat: React.FC<EnhancedLexigoChatProps> = ({ onNavigate }) =
                     <div className="mt-3 space-y-3">
                       {/* Urgency Badge */}
                       <div className="flex items-center gap-2">
-                        <Badge className={`${this.getUrgencyColor(message.analysis.urgency)} flex items-center gap-1`}>
+                        <Badge className={`${getUrgencyColor(message.analysis.urgency)} flex items-center gap-1`}>
                           <Clock className="h-3 w-3" />
                           {message.analysis.urgency === 'critical' ? 'Kritisk' :
                            message.analysis.urgency === 'high' ? 'Hög' :
@@ -282,7 +282,7 @@ const EnhancedLexigoChat: React.FC<EnhancedLexigoChatProps> = ({ onNavigate }) =
                       </Card>
 
                       {/* Key Points */}
-                      {message.analysis.keyPoints.length > 0 && (
+                      {message.analysis.keyPoints && message.analysis.keyPoints.length > 0 && (
                         <Card className="bg-white border-green-200">
                           <CardHeader className="pb-2">
                             <CardTitle className="text-sm flex items-center gap-2">
@@ -301,7 +301,7 @@ const EnhancedLexigoChat: React.FC<EnhancedLexigoChatProps> = ({ onNavigate }) =
                       )}
 
                       {/* Weaknesses */}
-                      {message.analysis.weaknesses.length > 0 && (
+                      {message.analysis.weaknesses && message.analysis.weaknesses.length > 0 && (
                         <Card className="bg-white border-red-200">
                           <CardHeader className="pb-2">
                             <CardTitle className="text-sm flex items-center gap-2">
@@ -320,7 +320,7 @@ const EnhancedLexigoChat: React.FC<EnhancedLexigoChatProps> = ({ onNavigate }) =
                       )}
 
                       {/* Legal References */}
-                      {message.analysis.legalReferences.length > 0 && (
+                      {message.analysis.legalReferences && message.analysis.legalReferences.length > 0 && (
                         <Card className="bg-white border-purple-200">
                           <CardHeader className="pb-2">
                             <CardTitle className="text-sm flex items-center gap-2">
@@ -349,7 +349,7 @@ const EnhancedLexigoChat: React.FC<EnhancedLexigoChatProps> = ({ onNavigate }) =
                       )}
 
                       {/* Deadlines */}
-                      {message.analysis.deadlines.length > 0 && (
+                      {message.analysis.deadlines && message.analysis.deadlines.length > 0 && (
                         <Card className="bg-white border-orange-200">
                           <CardHeader className="pb-2">
                             <CardTitle className="text-sm flex items-center gap-2">

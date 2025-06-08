@@ -306,10 +306,14 @@ Svara med en strukturerad analys som inkluderar alla begärda element.`;
 
   private static async saveAnalysisToDatabase(content: string, analysis: LexigoAnalysisResponse): Promise<void> {
     try {
+      // Generate a temporary document ID since we don't have a real document ID
+      const tempDocumentId = crypto.randomUUID();
+      
       // Spara i analysis_results tabellen
       const { error } = await supabase
         .from('analysis_results')
         .insert({
+          document_id: tempDocumentId,
           summary: analysis.summary,
           key_points: analysis.keyPoints,
           legal_issues: analysis.weaknesses.map(w => ({
