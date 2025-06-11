@@ -4,15 +4,15 @@ import { BookOpen } from 'lucide-react';
 
 const LibraryHeader = () => {
   return (
-    <div className="text-center mb-16">
-      <div className="inline-flex items-center justify-center w-20 h-20 bg-gradient-to-br from-accent-500 to-accent-600 rounded-2xl mb-8 accent-glow">
-        <BookOpen className="h-10 w-10 text-white" />
+    <div className="text-center mb-16 animate-professional-fade-in">
+      <div className="inline-flex items-center justify-center w-16 h-16 bg-legal-teal rounded-xl mb-6 shadow-professional-md">
+        <BookOpen className="h-8 w-8 text-white" />
       </div>
-      <h2 className="text-5xl font-serif font-semibold text-white mb-6 tracking-tight text-gradient">
+      <h1 className="text-hero font-heading mb-4 legal-gradient">
         Juridiskt Bibliotek
-      </h2>
-      <p className="text-xl text-dark-300 font-sans max-w-3xl mx-auto leading-relaxed">
-        Användbara juridiska länkar och resurser för svenska rättsprocesser
+      </h1>
+      <p className="text-subtitle max-w-2xl mx-auto">
+        Kurerade resurser och kontakter för svenska juridiska processer
       </p>
     </div>
   );

@@ -4,20 +4,30 @@ import { Scale } from 'lucide-react';
 
 const LexigoHeader = () => {
   return (
-    <header className="bg-dark-surface border-b border-dark-border shadow-dark-lg">
-      <div className="cyber-container">
-        <div className="flex items-center gap-4">
-          <div className="flex items-center gap-3">
-            <div className="p-3 cyber-gradient-blue rounded-xl shadow-cyber-blue">
-              <Scale className="h-8 w-8 text-white" />
+    <header className="bg-background border-b border-border shadow-professional">
+      <div className="professional-container">
+        <div className="flex items-center justify-between py-4">
+          <div className="flex items-center gap-4">
+            <div className="flex items-center gap-3">
+              <div className="flex items-center justify-center w-12 h-12 bg-primary rounded-lg shadow-professional">
+                <Scale className="h-6 w-6 text-primary-foreground" />
+              </div>
+              <div>
+                <h1 className="text-2xl font-heading font-semibold text-foreground legal-gradient">
+                  Lexigo
+                </h1>
+                <p className="text-sm text-muted-foreground font-medium">
+                  Juridisk AI-assistent för svenska rättsprocesser
+                </p>
+              </div>
             </div>
-            <div>
-              <h1 className="text-3xl md:text-4xl font-bold text-foreground mb-2 cyber-text-gradient">
-                Lexigo
-              </h1>
-              <p className="text-base text-muted-foreground font-medium">
-                Din juridiska AI-assistent för svenska rättsprocesser
-              </p>
+          </div>
+          
+          {/* Optional: Add user menu or settings */}
+          <div className="flex items-center gap-3">
+            <div className="text-right hidden sm:block">
+              <p className="text-sm font-medium text-foreground">Välkommen</p>
+              <p className="text-xs text-muted-foreground">Juridisk expert</p>
             </div>
           </div>
         </div>

@@ -32,10 +32,10 @@ const LexigoApp = () => {
   };
 
   return (
-    <div className="min-h-screen bg-dark-bg">
+    <div className="min-h-screen bg-background">
       <LexigoHeader />
       <LexigoNavigation activeTab={activeTab} onTabChange={setActiveTab} />
-      <main className="bg-dark-bg">
+      <main className="bg-background">
         {renderActiveView()}
       </main>
     </div>
