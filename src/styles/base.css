@@ -1,0 +1,123 @@
+
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Crimson+Text:wght@400;600&display=swap');
+
+@layer base {
+  :root {
+    /* Premium Professional Color Palette */
+    --background: 252 252 253; /* Very light cool grey */
+    --foreground: 30 41 59; /* Sophisticated dark blue-grey */
+
+    --card: 255 255 255; /* Pure white for clean cards */
+    --card-foreground: 30 41 59;
+
+    --popover: 255 255 255;
+    --popover-foreground: 30 41 59;
+
+    /* Primary: Professional Swedish blue with sophistication */
+    --primary: 51 65 85; /* Deep slate blue */
+    --primary-foreground: 248 250 252;
+
+    /* Secondary: Muted gold accent for premium feel */
+    --secondary: 120 113 108; /* Warm grey-brown */
+    --secondary-foreground: 255 255 255;
+
+    /* Muted professional tones */
+    --muted: 241 245 249; /* Very light blue-grey */
+    --muted-foreground: 100 116 139; /* Medium grey for subtle text */
+
+    /* Accent: Refined teal for interactive elements */
+    --accent: 14 116 144; /* Professional teal */
+    --accent-foreground: 255 255 255;
+
+    /* System colors */
+    --destructive: 220 38 38; /* Refined red */
+    --destructive-foreground: 255 255 255;
+
+    --border: 226 232 240; /* Subtle border */
+    --input: 255 255 255; /* Clean white inputs */
+    --ring: 51 65 85; /* Focus ring matches primary */
+
+    --radius: 6px; /* Slightly more refined radius */
+
+    /* Premium shadows and highlights */
+    --shadow-subtle: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+    --shadow-sm: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
+    --shadow-base: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+    --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+    
+    /* Legal profession color accents */
+    --legal-gold: 183 149 95; /* Subtle legal gold */
+    --legal-navy: 30 58 138; /* Traditional legal navy */
+    --legal-burgundy: 127 29 29; /* Classic legal burgundy */
+  }
+
+  .dark {
+    --background: 15 23 42; /* Deep slate background */
+    --foreground: 241 245 249;
+
+    --card: 30 41 59; /* Darker card background */
+    --card-foreground: 241 245 249;
+
+    --popover: 30 41 59;
+    --popover-foreground: 241 245 249;
+
+    --primary: 100 116 139; /* Lighter primary for dark mode */
+    --primary-foreground: 15 23 42;
+
+    --secondary: 51 65 85;
+    --secondary-foreground: 241 245 249;
+
+    --muted: 51 65 85;
+    --muted-foreground: 148 163 184;
+
+    --accent: 56 189 248; /* Brighter accent for dark mode */
+    --accent-foreground: 15 23 42;
+
+    --destructive: 239 68 68;
+    --destructive-foreground: 241 245 249;
+
+    --border: 51 65 85;
+    --input: 30 41 59;
+    --ring: 100 116 139;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply bg-background text-foreground font-body;
+    font-family: 'Inter', system-ui, -apple-system, sans-serif;
+    font-feature-settings: 'kern' 1, 'liga' 1, 'calt' 1;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    letter-spacing: -0.011em;
+    line-height: 1.6;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    @apply font-heading text-foreground;
+    font-family: 'Crimson Text', 'Inter', serif;
+    letter-spacing: -0.025em;
+    line-height: 1.25;
+    font-weight: 600;
+  }
+
+  h1 {
+    @apply text-4xl lg:text-5xl;
+  }
+
+  h2 {
+    @apply text-3xl lg:text-4xl;
+  }
+
+  h3 {
+    @apply text-2xl lg:text-3xl;
+  }
+
+  h4 {
+    @apply text-xl lg:text-2xl;
+  }
+}

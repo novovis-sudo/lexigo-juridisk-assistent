@@ -1,0 +1,11 @@
+
+@layer components {
+  /* Professional Layout Utilities */
+  .section-spacing {
+    @apply py-16 lg:py-24;
+  }
+
+  .content-spacing {
+    @apply space-y-8 lg:space-y-12;
+  }
+}

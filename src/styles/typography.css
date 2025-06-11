@@ -1,0 +1,27 @@
+
+@layer components {
+  /* Typography Scale */
+  .text-hero {
+    @apply text-4xl lg:text-6xl font-heading tracking-tight;
+  }
+
+  .text-display {
+    @apply text-3xl lg:text-5xl font-heading tracking-tight;
+  }
+
+  .text-title {
+    @apply text-2xl lg:text-3xl font-heading tracking-tight;
+  }
+
+  .text-subtitle {
+    @apply text-xl lg:text-2xl font-medium text-muted-foreground;
+  }
+
+  .text-body {
+    @apply text-base leading-relaxed;
+  }
+
+  .text-caption {
+    @apply text-sm text-muted-foreground;
+  }
+}
